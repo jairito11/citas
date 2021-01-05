@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <h:panelGrid>
+                    <h:link value="Alumnos" outcome="alumnos"/>
+                    <h:link value="Citas" outcome="citas"/>
+                </h:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel value="Asesores"/>
+                    <br></br>
+                    <h:commandLink value="Nuevo Asesor" action="#{asesoresBacking.nuevo()}"/>
+                    <p:dataTable value="#{asesoresBacking.listaAsesores}" var="a" paginator="true" rows="2">
+                        <p:column headerText="Nombre"
+                                  filterBy="#{a.nombre}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Paterno">
+                            <h:outputText value="#{a.paterno}"/>
+                        </p:column>
+                        <p:column headerText="Materno">
+                            <h:outputText value="#{a.materno}"/>
+                        </p:column>
+                        <p:column headerText="Especialidad">
+                            <h:outputText value="#{a.especialidad}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{asesoresBacking.seleccionarAsesor(a)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{asesoresBacking.eliminar(a)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <!--Editar-->
+                <h:form>
+                    <p:dialog header="Asesores"
+                              visible="#{asesoresBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ingresa el Nombre"/>
+                            <p:inputText value="#{asesoresBacking.asesor.nombre}"
+                                         placeholder="Nombre"
+                                         required="true"
+                                         requiredMessage="Ingresa nombre"/>
+                            <p:outputLabel value="Ingresa el A. Paterno"/>
+                            <p:inputText value="#{asesoresBacking.asesor.paterno}"
+                                         placeholder="Paterno"
+                                         required="true"
+                                         requiredMessage="Ingresa el apellido paterno"/>
+                            <p:outputLabel value="Ingresa el A. Materno"/>
+                            <p:inputText value="#{asesoresBacking.asesor.materno}"
+                                         placeholder="Materno"
+                                         required="true"
+                                         requiredMessage="Ingresa el apellido materno"/>
+                            <p:outputLabel value="Ingresa la especialidad"/>
+                            <p:inputText value="#{asesoresBacking.asesor.especialidad}"
+                                         placeholder="Especialidad"
+                                         required="true"
+                                         requiredMessage="Ingresa la especialidad"/>
+                            <p:outputLabel value="Ingresa Correo"/>
+                            <p:inputText value="#{asesoresBacking.asesor.correo}"
+                                         placeholder="Correo"
+                                         required="true"
+                                         requiredMessage="Ingresa un correo"/>
+                            <p:outputLabel value="Ingresa un password"/>
+                            <p:password value="#{asesoresBacking.asesor.password}"
+                                        placeholder="Password"
+                                        required="true"
+                                        requiredMessage="Ingresa un password"/>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{asesoresBacking.cerrarDialogo()}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{asesoresBacking.guardar()}"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

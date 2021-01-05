@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <h:panelGrid>
+                    <h:link value="Alumnos" outcome="alumnos"/>
+                    <h:link value="Asesores" outcome="asesores"/>
+                </h:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel value="Citas"/>
+                    <br></br>
+                    <h:commandLink value="Nueva cita" action="#{citasBacking.nuevo()}"/>
+                    <p:dataTable value="#{citasBacking.listaCitas}" var="c" paginator="true" rows="2">
+                        <p:column headerText="Fecha"
+                                  filterBy="#{c.fecha}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{c.fecha}">
+                                <f:convertDateTime pattern="YYYY-MM-DD"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{c.hora}"/>
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{c.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Asesor">
+                            <h:outputText value="#{c.asesorId.nombre} #{c.asesorId.paterno} #{c.asesorId.materno}"/>
+                        </p:column>
+                        <p:column headerText="Alumno">
+                            <h:outputText value="#{c.alumnoId.nombre} #{c.alumnoId.paterno} #{c.alumnoId.materno}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{citasBacking.seleccionarCita(c)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{citasBacking.eliminar(c)}"/>
+                                           
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <!--Editar-->
+                <h:form>
+                    <p:dialog header="Citas"
+                              visible="#{citasBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ingrese fecha"/>
+                            <p:calendar value="#{citasBacking.cita.fecha}"/>
+                            <p:outputLabel value="Ingresa hora"/>
+                            <p:inputText value="#{citasBacking.cita.hora}"
+                                         placeholder="HH:MM"
+                                         required="true"
+                                         requiredMessage="Captura la hora"/>
+                            <p:outputLabel value="Ingresa la descripción"/>
+                            <p:inputText value="#{citasBacking.cita.descripcion}"/>
+                            <p:outputLabel value="Selecciona Asesor"/>
+                            <p:selectOneMenu value="#{citasBacking.asesor.id}">
+                                <f:selectItems value="#{asesoresBacking.listaAsesores}" var="ase"
+                                               itemValue="#{ase.id}" itemLabel="#{ase.nombre} #{ase.paterno} #{ase.materno}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Selelecciona un Alumno"/>
+                            <p:selectOneMenu value="#{citasBacking.alumno.id}">
+                                <f:selectItems value="#{alumnosBacking.listaAlumnos}" var="alu"
+                                               itemValue="#{alu.id}" itemLabel="#{alu.nombre} #{alu.paterno} #{alu.materno}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{citasBacking.cerrarDialogo()}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{citasBacking.guardar()}"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

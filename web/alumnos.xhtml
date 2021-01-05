@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <h:panelGrid>
+                    <h:link value="Asesores" outcome="asesores"/>
+                    <h:link value="Citas" outcome="citas"/>
+                </h:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel value="Alumnos"/>
+                    <br></br>
+                    <h:commandLink value="Nuevo Alumno" action="#{alumnosBacking.nuevo()}"/>
+                    <p:dataTable value="#{alumnosBacking.listaAlumnos}" var="a" paginator="true" rows="2">
+                        <p:column headerText="Matricula"
+                                  filterBy="#{a.matricula}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{a.matricula}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Paterno">
+                            <h:outputText value="#{a.paterno}"/>
+                        </p:column>
+                        <p:column headerText="Materno">
+                            <h:outputText value="#{a.materno}"/>
+                        </p:column>
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{a.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{alumnosBacking.seleccionarAlumno(a)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{alumnosBacking.eliminar(a)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <!--Editar-->
+                <h:form>
+                    <p:dialog header="Alumnos"
+                              visible="#{alumnosBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ingresa Matricula"/>
+                            <p:inputText value="#{alumnosBacking.alumno.matricula}"
+                                         placeholder="Matricula"
+                                         required="true"
+                                         requiredMessage="Ingresa la matricula"/>
+                            <p:outputLabel value="Ingresa Nombre"/>
+                            <p:inputText value="#{alumnosBacking.alumno.nombre}"
+                                         placeholder="Nombre"
+                                         required="true"
+                                         requiredMessage="Ingresa Nombre"/>
+                            <p:outputLabel value="Ingresa A. Paterno"/>
+                            <p:inputText value="#{alumnosBacking.alumno.paterno}"
+                                         placeholder="Paterno"
+                                         required="true"
+                                         requiredMessage="Ingresa apellido paterno"/>
+                            <p:outputLabel value="Ingresa A. Materno"/>
+                            <p:inputText value="#{alumnosBacking.alumno.materno}"
+                                         placeholder="Materno"
+                                         required="true"
+                                         requiredMessage="Ingresa apellido materno"/>
+                            <p:outputLabel value="Ingresa telefono"/>
+                            <p:inputText value="#{alumnosBacking.alumno.telefono}"
+                                         placeholder="Telefono"
+                                         required="true"
+                                         requiredMessage="Ingresa el telefono"/>
+                            <p:outputLabel value="Ingresa correo"/>
+                            <p:inputText value="#{alumnosBacking.alumno.correo}"
+                                         placeholder="Correo"
+                                         required="true"
+                                         requiredMessage="Ingresa correo"/>
+                            <p:outputLabel value="Ingresa password"/>
+                            <p:password value="#{alumnosBacking.alumno.password}"
+                                         placeholder="Password"
+                                         required="true"
+                                         requiredMessage="Ingresa el password"/>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{alumnosBacking.cerrarDialogo()}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{alumnosBacking.guardar()}"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -8,10 +8,19 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBacking.locale}">
         <h:graphicImage library="img" name="2.png" width="100%"/>
         <h:form>
+            <h:panelGrid>
+                <h:commandLink value="#{msg['inicio.index.es']}"
+                               action="#{localeBacking.cambiarIdioma('es')}"/>
+                <h:commandLink value="#{msg['inicio.index.en']}"
+                               action="#{localeBacking.cambiarIdioma('en')}"/>
+            </h:panelGrid>
+        </h:form>
+        <h:form>
             <p:panelGrid>
-                <h:commandButton value="Alumnos" 
+                <h:commandButton value="#{msg['inicio.index.alumnos']}" 
                                  style="color: #20bf6b !important;
                                  text-transform: uppercase;
                                  background: #ffffff;
@@ -24,7 +33,7 @@
                                  margin-top: 50px;"
                                  styleClass="ui-priority-primary"
                                  action="loginAlumnos"/>
-                <h:commandButton value="Asesores" 
+                <h:commandButton value="#{msg['inicio.index.asesores']}" 
                                  style="color: #20bf6b !important;
                                  text-transform: uppercase;
                                  background: #ffffff;
@@ -39,6 +48,7 @@
                                  action="loginAsesores"/>
             </p:panelGrid>
         </h:form>
+        </f:view>
     </h:body>
 </html>
 

@@ -5,40 +5,41 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Alumnos</title>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBacking.locale}">
         <h:graphicImage library="img" name="1.png" width="100%"/>
-        
+
         <h:form style="
                 left: 38%;
                 top: 50%;
                 position: absolute;">
             
         <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
-        <p:outputLabel value="Ingreso Alumnos" style="margin-left: 90px"/>
+        <p:outputLabel value="#{msg['inicio.loginAlumnos.ingreso']}" style="margin-left: 90px"/>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="correo" value="Correo" />
+            <h:outputLabel for="correo" value="#{msg['inicio.duoLogin.correo']}" />
             <p:inputText id="correo"
                          value="#{loginAlumnos.correo}"
                          required="true"
-                         requiredMessage="Ingresa tu correo"
+                         requiredMessage="#{msg['inicio.duoLogin.correoRequired']}"
                          label="username" />
              
-            <h:outputLabel for="password" value="Password:" />
+            <h:outputLabel for="password" value="Password" />
             <p:password id="password"
                         value="#{loginAlumnos.password}"
                         required="true"
-                        requiredMessage="Ingresa tu Password"
+                        requiredMessage="#{msg['inicio.duoLogin.passwordRequired']}"
                         label="password"/>
              
             <f:facet name="footer">
-                <p:commandButton value="Ingresar" update="growl" action="#{loginAlumnos.validarLogin()}"
+                <p:commandButton value="#{msg['inicio.duoLogin.ingresar']}" update="growl" action="#{loginAlumnos.validarLogin()}"
                                  oncomplete="handleLoginRequest(xhr, status, args)" style="width: 100%" />
             </f:facet>  
         </h:panelGrid>            
         </h:form>
-        
+        </f:view>
     </h:body>
 </html>
 

@@ -7,88 +7,89 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+        <f:view locale="#{localeBacking.locale}">
         <ui:composition template="./templates/miTemplate.xhtml">
-
+            
             <ui:define name="left">
                 <h:panelGrid>
-                    <h:link value="Alumnos" outcome="alumnos" rendered="#{loginAlumnos.alumno != null}"/>
-                    <h:link value="Asesores" outcome="asesores" rendered="#{loginAsesores.asesor != null}"/>
+                    <h:link value="#{msg['inicio.index.alumnos']}" outcome="alumnos" rendered="#{loginAlumnos.alumno != null}"/>
+                    <h:link value="#{msg['inicio.index.asesores']}" outcome="asesores" rendered="#{loginAsesores.asesor != null}"/>
                 </h:panelGrid>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <h:outputLabel value="Citas"/>
+                    <h:outputLabel value="#{msg['vista.alumnos.linkCitas']}"/>
                     <br></br>
-                    <h:commandLink value="Nueva cita" action="#{citasBacking.nuevo()}"/>
+                    <h:commandLink value="#{msg['vista.citas.nuevo']}" action="#{citasBacking.nuevo()}"/>
                     <p:dataTable value="#{citasBacking.listaCitas}" var="c" paginator="true" rows="2">
-                        <p:column headerText="Fecha"
+                        <p:column headerText="#{msg['vista.citas.fecha']}"
                                   filterBy="#{c.fecha}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{c.fecha}">
                                 <f:convertDateTime pattern="YYYY-MM-DD"/>
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="Hora">
+                        <p:column headerText="#{msg['vista.citas.hora']}">
                             <h:outputText value="#{c.hora}"/>
                         </p:column>
-                        <p:column headerText="Descripción">
+                        <p:column headerText="#{msg['vista.citas.descripcion']}">
                             <h:outputText value="#{c.descripcion}"/>
                         </p:column>
-                        <p:column headerText="Asesor">
+                        <p:column headerText="#{msg['vista.citas.asesor']}">
                             <h:outputText value="#{c.asesorId.nombre} #{c.asesorId.paterno} #{c.asesorId.materno}"/>
                         </p:column>
-                        <p:column headerText="Alumno">
+                        <p:column headerText="#{msg['vista.citas.alumno']}">
                             <h:outputText value="#{c.alumnoId.nombre} #{c.alumnoId.paterno} #{c.alumnoId.materno}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Editar"
+                            <h:commandLink value="#{msg['vista.alumnos.editar']}"
                                            action="#{citasBacking.seleccionarCita(c)}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Eliminar"
+                            <h:commandLink value="#{msg['vista.alumnos.eliminar']}"
                                            action="#{citasBacking.eliminar(c)}"/>
                                            
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <!--Editar-->
+                <!--Editar-->             
                 <h:form>
-                    <p:dialog header="Citas"
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+                    <p:dialog header="#{msg['vista.alumnos.linkCitas']}"
                               visible="#{citasBacking.muestraDialogo}"
                               closable="false"
                               modal="true">
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Ingrese fecha"/>
+                            <p:outputLabel value="#{msg['vista.citas.ingreseFecha']}"/>
                             <p:calendar value="#{citasBacking.cita.fecha}"/>
-                            <p:outputLabel value="Ingresa hora"/>
+                            <p:outputLabel value="#{msg['vista.citas.ingreseHora']}"/>
                             <p:inputText value="#{citasBacking.cita.hora}"
                                          placeholder="HH:MM"
                                          required="true"
-                                         requiredMessage="Captura la hora"/>
-                            <p:outputLabel value="Ingresa la descripción"/>
+                                         requiredMessage="#{citasBacking.cita.hora}"/>
+                            <p:outputLabel value="#{msg['vista.citas.ingresaDescripcion']}"/>
                             <p:inputText value="#{citasBacking.cita.descripcion}"/>
-                            <p:outputLabel value="Selecciona Asesor"/>
+                            <p:outputLabel value="#{msg['vistas.citas.seleccionaAsesor']}"/>
                             <p:selectOneMenu value="#{citasBacking.asesor.id}">
                                 <f:selectItems value="#{asesoresBacking.listaAsesores}" var="ase"
                                                itemValue="#{ase.id}" itemLabel="#{ase.nombre} #{ase.paterno} #{ase.materno}"/>
                             </p:selectOneMenu>
-                            <p:outputLabel value="Selelecciona un Alumno"/>
+                            <p:outputLabel value="#{msg['vistas.citas.seleccionaAlumno']}"/>
                             <p:selectOneMenu value="#{citasBacking.alumno.id}">
                                 <f:selectItems value="#{alumnosBacking.listaAlumnos}" var="alu"
                                                itemValue="#{alu.id}" itemLabel="#{alu.nombre} #{alu.paterno} #{alu.materno}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <h:commandButton value="Cancelar"
+                        <h:commandButton value="#{msg['vista.trio.cancelar']}"
                                          actionListener="#{citasBacking.cerrarDialogo()}"/>
-                        <h:commandButton value="Registrar"
+                        <h:commandButton value="#{msg['vista.trio.registrar']}"
                                          actionListener="#{citasBacking.guardar()}"/>
                     </p:dialog>
                 </h:form>
             </ui:define>
-
+<!--   #{msg['']}  -->
         </ui:composition>
-
+        </f:view>
     </body>
 </html>

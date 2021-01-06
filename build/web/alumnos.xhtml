@@ -3,106 +3,108 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+        <f:view locale="#{localeBacking.locale}">
         <ui:composition template="./templates/miTemplate.xhtml">
 
             <ui:define name="left">
                 <h:panelGrid>
-                    <h:link value="Citas" outcome="citas"/>
+                    <h:link value="#{msg['vista.alumnos.linkCitas']}" outcome="citas"/>
                 </h:panelGrid>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <h:outputLabel value="Alumnos"/>
+                    <h:outputLabel value="#{msg['vista.alumnos.alumnos']}"/>
                     <br></br>
-                    <h:commandLink value="Nuevo Alumno" action="#{alumnosBacking.nuevo()}"/>
+                    <h:commandLink value="#{msg['vista.alumnos.nuevo']}" action="#{alumnosBacking.nuevo()}"/>
                     <p:dataTable value="#{alumnosBacking.listaAlumnos}" var="a" paginator="true" rows="2">
-                        <p:column headerText="Matricula"
+                        <p:column headerText="#{msg['vista.alumnos.matricula']}"
                                   filterBy="#{a.matricula}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{a.matricula}"/>
                         </p:column>
-                        <p:column headerText="Nombre">
+                        <p:column headerText="#{msg['vista.alumnos.nombre']}">
                             <h:outputText value="#{a.nombre}"/>
                         </p:column>
-                        <p:column headerText="Paterno">
+                        <p:column headerText="#{msg['vista.alumnos.paterno']}">
                             <h:outputText value="#{a.paterno}"/>
                         </p:column>
-                        <p:column headerText="Materno">
+                        <p:column headerText="#{msg['vista.alumnos.materno']}">
                             <h:outputText value="#{a.materno}"/>
                         </p:column>
-                        <p:column headerText="Telefono">
+                        <p:column headerText="#{msg['vista.alumnos.telefono']}">
                             <h:outputText value="#{a.telefono}"/>
                         </p:column>
-                        <p:column headerText="Correo">
+                        <p:column headerText="#{msg['vista.alumnos.correo']}">
                             <h:outputText value="#{a.correo}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Editar"
+                            <h:commandLink value="#{msg['vista.alumnos.editar']}"
                                            action="#{alumnosBacking.seleccionarAlumno(a)}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Eliminar"
+                            <h:commandLink value="#{msg['vista.alumnos.eliminar']}"
                                            action="#{alumnosBacking.eliminar(a)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <!--Editar-->
+                <!--Editar--> 
                 <h:form>
-                    <p:dialog header="Alumnos"
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+                    <p:dialog header="#{msg['vista.alumnos.alumnos']}"
                               visible="#{alumnosBacking.muestraDialogo}"
                               closable="false"
                               modal="true">
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Ingresa Matricula"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaMatricula']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.matricula}"
-                                         placeholder="Matricula"
+                                         placeholder="#{msg['vista.alumnos.matricula']}"
                                          required="true"
-                                         requiredMessage="Ingresa la Matricula"/>
-                            <p:outputLabel value="Ingresa Nombre"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaMatricula']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaNombre']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.nombre}"
-                                         placeholder="Nombre"
+                                         placeholder="#{msg['vista.alumnos.nombre']}"
                                          required="true"
-                                         requiredMessage="Ingresa Nombre"/>
-                            <p:outputLabel value="Ingresa A. Paterno"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaNombre']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaPaterno']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.paterno}"
-                                         placeholder="Paterno"
+                                         placeholder="#{msg['vista.alumnos.paterno']}"
                                          required="true"
-                                         requiredMessage="Ingresa apellido paterno"/>
-                            <p:outputLabel value="Ingresa A. Materno"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaPaterno']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaMaterno']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.materno}"
-                                         placeholder="Materno"
+                                         placeholder="#{msg['vista.alumnos.materno']}"
                                          required="true"
-                                         requiredMessage="Ingresa apellido materno"/>
-                            <p:outputLabel value="Ingresa telefono"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaMaterno']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaTelefono']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.telefono}"
-                                         placeholder="Telefono"
+                                         placeholder="#{msg['vista.alumnos.telefono']}"
                                          required="true"
-                                         requiredMessage="Ingresa el telefono"/>
-                            <p:outputLabel value="Ingresa correo"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaTelefono']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaCorreo']}"/>
                             <p:inputText value="#{alumnosBacking.alumno.correo}"
-                                         placeholder="Correo"
+                                         placeholder="#{msg['vista.alumnos.correo']}"
                                          required="true"
-                                         requiredMessage="Ingresa correo"/>
-                            <p:outputLabel value="Ingresa password"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaCorreo']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaPassword']}"/>
                             <p:password value="#{alumnosBacking.alumno.password}"
                                          placeholder="Password"
                                          required="true"
-                                         requiredMessage="Ingresa el password"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaPassword']}"/>
                         </p:panelGrid>
-                        <h:commandButton value="Cancelar"
+                        <h:commandButton value="#{msg['vista.trio.cancelar']}"
                                          actionListener="#{alumnosBacking.cerrarDialogo()}"/>
-                        <h:commandButton value="Registrar"
+                        <h:commandButton value="#{msg['vista.trio.registrar']}"
                                          actionListener="#{alumnosBacking.guardar()}"/>
                     </p:dialog>
                 </h:form>
             </ui:define>
 
         </ui:composition>
-
+        </f:view>
     </body>
 </html>

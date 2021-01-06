@@ -3,98 +3,100 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+    <f:view locale="#{localeBacking.locale}">
         <ui:composition template="./templates/miTemplate.xhtml">
 
             <ui:define name="left">
                 <h:panelGrid>   
-                    <h:link value="Citas" outcome="citas"/>
+                    <h:link value="#{msg['vista.alumnos.linkCitas']}" outcome="citas"/>
                 </h:panelGrid>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <h:outputLabel value="Asesores"/>
+                    <h:outputLabel value="#{msg['inicio.index.asesores']}"/>
                     <br></br>
-                    <h:commandLink value="Nuevo Asesor" action="#{asesoresBacking.nuevo()}"/>
+                    <h:commandLink value="#{msg['vista.asesores.nuevo']}" action="#{asesoresBacking.nuevo()}"/>
                     <p:dataTable value="#{asesoresBacking.listaAsesores}" var="a" paginator="true" rows="2">
-                        <p:column headerText="Nombre"
+                        <p:column headerText="#{msg['vista.alumnos.nombre']}"
                                   filterBy="#{a.nombre}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{a.nombre}"/>
                         </p:column>
-                        <p:column headerText="Paterno">
+                        <p:column headerText="#{msg['vista.alumnos.paterno']}">
                             <h:outputText value="#{a.paterno}"/>
                         </p:column>
-                        <p:column headerText="Materno">
+                        <p:column headerText="#{msg['vista.alumnos.materno']}">
                             <h:outputText value="#{a.materno}"/>
                         </p:column>
-                        <p:column headerText="Especialidad">
+                        <p:column headerText="#{msg['vista.asesores.especialidad']}">
                             <h:outputText value="#{a.especialidad}"/>
                         </p:column>
-                        <p:column headerText="Correo">
+                        <p:column headerText="#{msg['vista.alumnos.correo']}">
                             <h:outputText value="#{a.correo}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Editar"
+                            <h:commandLink value="#{msg['vista.alumnos.editar']}"
                                            action="#{asesoresBacking.seleccionarAsesor(a)}"/>
                         </p:column>
                         <p:column>
-                            <h:commandLink value="Eliminar"
+                            <h:commandLink value="#{msg['vista.alumnos.eliminar']}"
                                            action="#{asesoresBacking.eliminar(a)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <!--Editar-->
+                <!--Editar-->             
                 <h:form>
-                    <p:dialog header="Asesores"
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+                    <p:dialog header="#{msg['inicio.index.asesores']}"
                               visible="#{asesoresBacking.muestraDialogo}"
                               closable="false"
                               modal="true">
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Ingresa el Nombre"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaNombre']}"/>
                             <p:inputText value="#{asesoresBacking.asesor.nombre}"
-                                         placeholder="Nombre"
+                                         placeholder="#{msg['vista.alumnos.nombre']}"
                                          required="true"
-                                         requiredMessage="Ingresa nombre"/>
-                            <p:outputLabel value="Ingresa el A. Paterno"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaNombre']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaPaterno']}"/>
                             <p:inputText value="#{asesoresBacking.asesor.paterno}"
-                                         placeholder="Paterno"
+                                         placeholder="#{msg['vista.alumnos.paterno']}"
                                          required="true"
-                                         requiredMessage="Ingresa el apellido paterno"/>
-                            <p:outputLabel value="Ingresa el A. Materno"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaPaterno']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaMaterno']}"/>
                             <p:inputText value="#{asesoresBacking.asesor.materno}"
-                                         placeholder="Materno"
+                                         placeholder="#{msg['vista.alumnos.materno']}"
                                          required="true"
-                                         requiredMessage="Ingresa el apellido materno"/>
-                            <p:outputLabel value="Ingresa la especialidad"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaMaterno']}"/>
+                            <p:outputLabel value="#{msg['vista.asesores.ingresaEspecialidad']}"/>
                             <p:inputText value="#{asesoresBacking.asesor.especialidad}"
-                                         placeholder="Especialidad"
+                                         placeholder="#{msg['vista.asesores.especialidad']}"
                                          required="true"
-                                         requiredMessage="Ingresa la especialidad"/>
-                            <p:outputLabel value="Ingresa Correo"/>
+                                         requiredMessage="#{msg['vista.asesores.ingresaEspecialidad']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaCorreo']}"/>
                             <p:inputText value="#{asesoresBacking.asesor.correo}"
-                                         placeholder="Correo"
+                                         placeholder="#{msg['vista.alumnos.correo']}"
                                          required="true"
-                                         requiredMessage="Ingresa un correo"/>
-                            <p:outputLabel value="Ingresa un password"/>
+                                         requiredMessage="#{msg['vista.alumnos.ingresaCorreo']}"/>
+                            <p:outputLabel value="#{msg['vista.alumnos.ingresaPassword']}"/>
                             <p:password value="#{asesoresBacking.asesor.password}"
                                         placeholder="Password"
                                         required="true"
-                                        requiredMessage="Ingresa un password"/>
+                                        requiredMessage="#{msg['vista.alumnos.ingresaPassword']}"/>
                         </p:panelGrid>
-                        <h:commandButton value="Cancelar"
+                        <h:commandButton value="#{msg['vista.trio.cancelar']}"
                                          actionListener="#{asesoresBacking.cerrarDialogo()}"/>
-                        <h:commandButton value="Registrar"
+                        <h:commandButton value="#{msg['vista.trio.registrar']}"
                                          actionListener="#{asesoresBacking.guardar()}"/>
                     </p:dialog>
                 </h:form>
             </ui:define>
 
         </ui:composition>
-
+    </f:view>
     </body>
 </html>

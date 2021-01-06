@@ -9,6 +9,7 @@ package fiuaemex.backing;
 import fiuaemex.entities.Alumnos;
 import fiuaemex.facade.AlumnosFacadeLocal;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -71,6 +72,6 @@ public class LoginAlumnos implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return outcome;
-    }
+    }  
     
 }

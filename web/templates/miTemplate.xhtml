@@ -15,7 +15,9 @@
 
 
         <div id="top" class="top">
-            <h:graphicImage library="img" name="1.jpeg" width="100%"/>
+            <h:graphicImage library="img" name="1.png" width="100%"/>
+            <h:outputText value="En sesion alumno: #{loginAlumnos.alumno.correo}" rendered="#{loginAlumnos.alumno != null}"/>
+            <h:outputText value="En sesion profesor: #{loginAsesores.asesor.correo}" rendered="#{loginAsesores.asesor != null}"/>
         </div>
         <div>
             <div id="left">

@@ -12,8 +12,8 @@
 
             <ui:define name="left">
                 <h:panelGrid>
-                    <h:link value="Alumnos" outcome="alumnos"/>
-                    <h:link value="Asesores" outcome="asesores"/>
+                    <h:link value="Alumnos" outcome="alumnos" rendered="#{loginAlumnos.alumno != null}"/>
+                    <h:link value="Asesores" outcome="asesores" rendered="#{loginAsesores.asesor != null}"/>
                 </h:panelGrid>
             </ui:define>
 

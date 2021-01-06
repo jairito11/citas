@@ -100,4 +100,5 @@ public class AlumnosBacking implements Serializable{
         alumnosFacade.remove(a);
         consultar();
     }
+    
 }

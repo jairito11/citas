@@ -29,5 +29,7 @@ public interface AlumnosFacadeLocal {
     List<Alumnos> findRange(int[] range);
 
     int count();
+
+    public Alumnos consultarAlumnos(String correo, String password);
     
 }

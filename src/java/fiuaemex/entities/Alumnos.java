@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Alumnos.findByMaterno", query = "SELECT a FROM Alumnos a WHERE a.materno = :materno")
     , @NamedQuery(name = "Alumnos.findByTelefono", query = "SELECT a FROM Alumnos a WHERE a.telefono = :telefono")
     , @NamedQuery(name = "Alumnos.findByCorreo", query = "SELECT a FROM Alumnos a WHERE a.correo = :correo")
-    , @NamedQuery(name = "Alumnos.findByPassword", query = "SELECT a FROM Alumnos a WHERE a.password = :password")})
+    , @NamedQuery(name = "Alumnos.findByPassword", query = "SELECT a FROM Alumnos a WHERE a.password = :password")
+    , @NamedQuery(name = "Alumnos.findByAlumno", query = "SELECT a FROM Alumnos a WHERE a.correo = :correo AND a.password = :password")})
 public class Alumnos implements Serializable {
 
     private static final long serialVersionUID = 1L;

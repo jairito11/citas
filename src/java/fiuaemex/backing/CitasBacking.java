@@ -127,5 +127,4 @@ public class CitasBacking implements Serializable{
         citasFacade.remove(c);
         consultar();
     }
-    
 }

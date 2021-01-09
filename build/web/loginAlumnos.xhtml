@@ -22,13 +22,16 @@
             <h:outputLabel for="correo" value="#{msg['inicio.duoLogin.correo']}" />
             <p:inputText id="correo"
                          value="#{loginAlumnos.correo}"
+                         placeholder="micorreo@mail.com"
                          required="true"
                          requiredMessage="#{msg['inicio.duoLogin.correoRequired']}"
-                         label="username" />
-             
+                         label="username" >
+                <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+            </p:inputText>
             <h:outputLabel for="password" value="Password" />
             <p:password id="password"
                         value="#{loginAlumnos.password}"
+                        placeholder="Password"
                         required="true"
                         requiredMessage="#{msg['inicio.duoLogin.passwordRequired']}"
                         label="password"/>

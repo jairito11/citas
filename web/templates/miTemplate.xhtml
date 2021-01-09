@@ -24,6 +24,14 @@
                 <h:commandLink value="#{msg['inicio.index.en']}"
                                action="#{localeBacking.cambiarIdioma('en')}"/>
             </h:panelGrid>
+                <div>
+                    <h:commandLink value="Cerrar Sesion"
+                                   action="#{loginAlumnos.cerrarSesion()}"
+                                   rendered="#{loginAlumnos.alumno != null}"/>
+                    <h:commandLink value="Cerrar Sesion"
+                                   action="#{loginAsesores.cerrarSesion()}"
+                                   rendered="#{loginAsesores.asesor != null}"/>
+                </div>
             </h:form>
             <h:outputText value="#{msg['template.sesion.alumno']} #{loginAlumnos.alumno.correo}" rendered="#{loginAlumnos.alumno != null}"/>
             <h:outputText value="#{msg['template.sesion.profesor']} #{loginAsesores.asesor.correo}" rendered="#{loginAsesores.asesor != null}"/>

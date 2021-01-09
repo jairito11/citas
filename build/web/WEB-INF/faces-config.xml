@@ -8,5 +8,11 @@
             <base-name>fiuaemex.bundle.mensajes</base-name>
             <var>msg</var>
         </resource-bundle>
-    </application>             
+    </application>
+    
+    <validator>
+        <validator-class>fiuaemex.validator.PasswordValidator</validator-class>
+        <validator-id>passwordValidator</validator-id>
+    </validator>
+    
 </faces-config>

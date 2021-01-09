@@ -8,13 +8,16 @@ package fiuaemex.backing;
 
 import fiuaemex.entities.Alumnos;
 import fiuaemex.facade.AlumnosFacadeLocal;
+import fiuaemex.util.SessionUtil;
 import java.io.Serializable;
 import java.util.Locale;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -66,12 +69,21 @@ public class LoginAlumnos implements Serializable {
         alumno = alumnosFacade.consultarAlumnos(correo, password);
         
         if(alumno != null){
+            HttpSession ses = SessionUtil.getSession();
+            ses.setAttribute("username", alumno.getCorreo());
+            
             outcome="alumnos";
         }else{
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Usuario no valido","Usuario no valido");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return outcome;
-    }  
+    }
     
+    public String cerrarSesion(){
+        HttpSession ses = SessionUtil.getSession();
+        ses.invalidate();
+        return "index";
+    }
+ 
 }
